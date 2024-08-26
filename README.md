@@ -38,6 +38,10 @@ Los datos obtenidos de la API se muestran en la interfaz de usuario utilizando c
 
 Los datos se muestran en una tarjeta que incluye información como temperatura, condición climática, humedad y velocidad del viento.
 
+## Video demostrativo del Funcionamiento
+
+https://youtu.be/70MJ3TgOdBg
+
 ## Tecnologías utilizadas
 
 - React
