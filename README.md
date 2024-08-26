@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WhatsMyWeather
 
-## Getting Started
+WhatsMyWeather es una aplicación web que proporciona información meteorológica en tiempo real para diferentes países. Esto es gracias a que consume el API de https://www.weatherapi.com
 
-First, run the development server:
+## Requisitos previos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (versión 14 o superior)
+- npm (normalmente viene con Node.js)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalación
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clona este repositorio
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Navega al directorio del proyecto
 
-## Learn More
+3. Instala las dependencias
 
-To learn more about Next.js, take a look at the following resources:
+## Ejecución
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para iniciar la aplicación en modo de desarrollo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+La aplicación estará disponible en `http://localhost:3000`.
 
-## Deploy on Vercel
+## Descripción de la API
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+WhatsMyWeather utiliza la API de WeatherAPI.com para obtener datos meteorológicos en tiempo real.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Conexión a la API
+
+La aplicación se conecta a la API mediante la función `fetchWeather` en `services/weatherService.ts`. Esta función realiza una solicitud GET a la API utilizando la biblioteca `fetch` de JavaScript.
+
+### Visualización de datos en tiempo real
+
+Los datos obtenidos de la API se muestran en la interfaz de usuario utilizando componentes React. La actualización de los datos se realiza de dos maneras:
+
+1. Automáticamente cada 30 segundos.
+2. Manualmente cuando el usuario hace clic en el botón "Actualizar".
+
+Los datos se muestran en una tarjeta que incluye información como temperatura, condición climática, humedad y velocidad del viento.
+
+## Tecnologías utilizadas
+
+- React
+- Next.js
+- TypeScript
+- Tailwind CSS
