@@ -1,51 +1,53 @@
 'use client'
 import React, { useState } from 'react';
-import { getNames } from 'country-list';
-import Select from 'react-select';
 
 type NavbarProps = {
-  onCountryChange: (country: string) => void;
+  onLocationChange: (location: string) => void; // Cambiado a onLocationChange
 };
 
-const Navbar: React.FC<NavbarProps> = ({ onCountryChange }) => {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+const Navbar: React.FC<NavbarProps> = ({ onLocationChange }) => {
+  const [locationInput, setLocationInput] = useState<string>('');
 
-  const countries = getNames().map((country) => ({
-    value: country,
-    label: country,
-  }));
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLocationInput(e.target.value);
+  };
 
-  const handleCountryChange = (selectedOption: any) => {
-    setSelectedCountry(selectedOption?.value || null);
-    onCountryChange(selectedOption?.value || null);
+  const handleSearch = () => {
+    if (locationInput.trim()) {
+      onLocationChange(locationInput); // Usa onLocationChange para enviar la ubicación
+      setLocationInput('');
+    }
   };
 
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
-      <div className="flex items-center space-x-2">
-            <img 
-                src="/images/weather-news_648198.png" 
-                alt="WhatsMyWeather Logo" 
-                className="h-8 w-8" 
-            />
-            <div className="text-white font-bold text-xl font-roboto">WhatsMyWeather</div>
-    </div>
-        <Select
-          options={countries}
-          onChange={handleCountryChange}
-          placeholder="Selecciona un País ↓ "
-          className="w-64 text-black"
-        />
+        <div className="flex items-center space-x-2">
+          <img 
+            src="/images/weather-news_648198.png" 
+            alt="WhatsMyWeather Logo" 
+            className="h-8 w-8" 
+          />
+          <div className="text-white font-bold text-xl font-roboto">WhatsMyWeather</div>
+        </div>
+        <div className="flex space-x-4">
+          <input
+            type="text"
+            value={locationInput}
+            onChange={handleInputChange}
+            placeholder="Ej: Jerusalem, Israel"
+            className="p-2 rounded w-64 text-black"
+          />
+          <button
+            onClick={handleSearch}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          >
+            Buscar
+          </button>
+        </div>
       </div>
-      {selectedCountry && (
-        <h1 className="text-white text-center mt-4">
-          País Seleccionado: {selectedCountry}
-        </h1>
-      )}
     </nav>
   );
 };
 
 export default Navbar;
-

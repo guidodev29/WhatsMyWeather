@@ -8,23 +8,24 @@ import { FaSyncAlt } from 'react-icons/fa';
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState<any>(null);
-  const [country, setCountry] = useState<string>('');
+  const [location, setLocation] = useState<string>(''); // Cambiado a location
   const [loading, setLoading] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(30);
   const [error, setError] = useState<string | null>(null);
 
-  const handleCountryChange = (newCountry: string) => {
-    if (newCountry) {
-      setCountry(newCountry);
+  // Define la función para manejar el cambio de ubicación
+  const handleLocationChange = (newLocation: string) => {
+    if (newLocation) {
+      setLocation(newLocation);
     }
   };
 
   const updateWeatherData = async () => {
-    if (country) {
+    if (location) {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchWeather(country);
+        const data = await fetchWeather(location);
         setWeatherData(data);
         setTimeLeft(30);
       } catch (error) {
@@ -42,7 +43,7 @@ export default function Home() {
 
   useEffect(() => {
     updateWeatherData();
-  }, [country]);
+  }, [location]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,7 +51,7 @@ export default function Home() {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [country]);
+  }, [location]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -62,7 +63,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-between">
-      <Navbar onCountryChange={handleCountryChange} />
+      {/* Usa la función handleLocationChange en el Navbar */}
+      <Navbar onLocationChange={handleLocationChange} />
       <div className="container mx-auto p-4 flex flex-col items-center mt-6">
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 w-full max-w-md" role="alert">
@@ -93,7 +95,6 @@ export default function Home() {
               <p className="mt-2 text-gray-500 text-xs">Última actualización: {weatherData.current.last_updated}</p>
             </div>
 
-            {/* Botón de actualización con spinner */}
             <div className="mt-6 flex justify-between items-center">
               <button
                 onClick={updateWeatherData}
