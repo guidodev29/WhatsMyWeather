@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { FaBars } from 'react-icons/fa'; // Icono de hamburguesa
+import { FaBars } from 'react-icons/fa';
 
 type NavbarProps = {
   onLocationChange: (location: string) => void;
@@ -8,7 +8,7 @@ type NavbarProps = {
 
 const Navbar: React.FC<NavbarProps> = ({ onLocationChange }) => {
   const [locationInput, setLocationInput] = useState<string>('');
-  const [menuOpen, setMenuOpen] = useState<boolean>(false); // Estado para el menú móvil
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocationInput(e.target.value);
@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLocationChange }) => {
 
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
+      <div className="container mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo y título */}
         <div className="flex items-center space-x-2">
           <img
@@ -31,22 +31,22 @@ const Navbar: React.FC<NavbarProps> = ({ onLocationChange }) => {
             alt="WhatsMyWeather Logo"
             className="h-8 w-8"
           />
-          <div className="text-white font-bold text-xl font-roboto">WhatsMyWeather</div>
+          <span className="text-white font-bold text-xl font-roboto">WhatsMyWeather</span>
         </div>
 
-        {/* Botón de hamburguesa para pantallas pequeñas */}
+        {/* Botón de hamburguesa (visible solo en pantallas pequeñas) */}
         <button
-          className="block lg:hidden text-white"
+          className="lg:hidden text-white"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <FaBars size={24} />
         </button>
 
-        {/* Input y botón de búsqueda (ocultable en móviles) */}
+        {/* Input y botón (ocultable en móviles) */}
         <div
           className={`${
             menuOpen ? 'block' : 'hidden'
-          } lg:flex space-x-4 items-center w-full lg:w-auto mt-4 lg:mt-0`}
+          } w-full lg:flex lg:w-auto lg:items-center gap-4`}
         >
           <input
             type="text"
@@ -57,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ onLocationChange }) => {
           />
           <button
             onClick={handleSearch}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full lg:w-auto"
           >
             Buscar
           </button>
